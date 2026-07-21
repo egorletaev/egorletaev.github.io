@@ -31,6 +31,26 @@ import Theme from '../components/Theme.astro';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Переключение по кнопке
+    document.querySelector('[data-drawer-toggle="logo-sidebar"]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('logo-sidebar')?.classList.toggle('-translate-x-full');
+    });
+
+    // Закрытие по клику вне
+    document.addEventListener('click', (event) => {
+      const drawer = document.getElementById('logo-sidebar');
+      const toggle = document.querySelector('[data-drawer-toggle="logo-sidebar"]');
+      
+      if (!drawer || drawer.classList.contains('-translate-x-full')) return;
+      //if (drawer.contains(event.target) || toggle?.contains(event.target)) return;
+      if (drawer.contains(event.target as Node) || toggle?.contains(event.target as Node)) return;
+      
+      drawer.classList.add('-translate-x-full');
+    });
+  });
+  /*
+  document.addEventListener('DOMContentLoaded', () => {
     // Drawer toggle
     document.querySelectorAll('[data-drawer-toggle]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -46,4 +66,5 @@ import Theme from '../components/Theme.astro';
 
 
   });
+  */
 </script>
